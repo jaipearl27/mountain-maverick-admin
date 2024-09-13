@@ -12,19 +12,19 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
 }));
 
 
-const Blogs = () => {
-  const [blogsData, setBlogsData] = useState(null);
+const Treks = () => {
+  const [data, setData] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const [page, setPage] = useState(searchParams.get("page") || 1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   
-  const getBlogs = () => {
+  const getTreks = () => {
     setIsLoading(true)
     instance
-      .get(`/blogs?page=${page}`)
+      .get(`/treks?page=${page}`)
       .then((res) => {
-        setBlogsData(res?.data?.blogsData);
+        setTreks(res?.data?.trekData);
         setTotalPages(res?.data?.totalPages);
         setIsLoading(false);
       })
@@ -35,7 +35,7 @@ const Blogs = () => {
   }
 
   useEffect(() => {
-    getBlogs()
+    getTreks()
   }, [page]);
 
   const handlePagination = (e, p) => {
@@ -44,18 +44,18 @@ const Blogs = () => {
   };
 
   const deleteItem = (item) => {
-    if(window.confirm(`Are you sure you want to delete blog`)){
-      instance.delete(`${import.meta.env.VITE_API_URL}/blogs/delete/${item._id}`).then((res) => {
+    if(window.confirm(`Are you sure you want to delete this trek`)){
+      instance.delete(`${import.meta.env.VITE_API_URL}/treks/${item._id}`).then((res) => {
         toast.success(res.data.message, {
           style: {
             background: "green",
             color: "white",
           },
         });
-        getBlogs()
+        getTreks()
       }).catch(err => {
         console.log(err)
-        toast.error("There was some issue deleting the blog", {
+        toast.error("There was some issue deleting the trek", {
           style: {
             background: "red",
             color: "white",
@@ -89,7 +89,7 @@ const Blogs = () => {
            <Skeleton animation="wave" height={50} />
          </>
           )}
-          {!isLoading && blogsData && (
+          {!isLoading && data && (
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
                 <tr>
@@ -156,4 +156,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default Treks;

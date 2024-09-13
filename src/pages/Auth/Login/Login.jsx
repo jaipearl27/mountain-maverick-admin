@@ -6,7 +6,6 @@ import axios from "axios";
 import {SyncLoader} from 'react-spinners'
 
 function Login() {
-  const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -16,7 +15,7 @@ function Login() {
   } = useForm();
 
   useEffect(() => {
-    if (localStorage.getItem("isusrlgd")) localStorage.clear();
+    if (localStorage.getItem("isusrlgdMMAdmin")) localStorage.clear();
   }, []);
 
   const onSubmit = (data) => {
@@ -32,7 +31,7 @@ function Login() {
             color: "white",
           },
         });
-        localStorage.setItem("isusrlgd", true);
+        localStorage.setItem("isusrlgdMMAdmin", true);
         window.location.href = "/";
       })
       .catch((err) => {

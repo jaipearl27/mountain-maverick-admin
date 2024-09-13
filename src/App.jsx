@@ -14,12 +14,13 @@ import Login from "./pages/Auth/Login/Login";
 import Layout from "./components/Layout/Layout";
 // import ComingSoon from "./pages/NotFound/ComingSoon";
 import NotFound from "./pages/NotFound/NotFound";
-import Blogs from "./pages/Blogs/Blogs";
+
 import AddBlogs from "./pages/Blogs/AddBlogs";
 import UpdateBlog from "./pages/Blogs/UpdateBlog";
 import AddReviews from "./pages/Reviews/AddReviews";
 import Reviews from "./pages/Reviews/Reviews";
 import UpdateReview from "./pages/Reviews/UpdateReview";
+import Treks from "./pages/Treks/Treks";
 
 const isUserLoggedIn = localStorage.getItem("isusrlgd");
 
@@ -40,8 +41,8 @@ const App = () => {
           element: <NotFound />,
         },
         {
-          path: "/blogs",
-          element: <Blogs />,
+          path: "/treks",
+          element: <Treks />,
         },
         {
           path: "/blogs/add",
