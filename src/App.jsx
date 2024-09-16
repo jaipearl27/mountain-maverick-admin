@@ -14,11 +14,15 @@ import Login from "./pages/Auth/Login/Login";
 import Layout from "./components/Layout/Layout";
 // import ComingSoon from "./pages/NotFound/ComingSoon";
 import NotFound from "./pages/NotFound/NotFound";
-import AddAuction from "./pages/Auctions/AddAuction";
-import UpdateAuction from "./pages/Auctions/UpdateAuction";
-import Auctions from "./pages/Auctions/Auctions";
 
-const isUserLoggedIn = localStorage.getItem("isusrlgd");
+import Treks from "./pages/Treks/Treks";
+import AddTrek from "./pages/Treks/AddTrek";
+import UpdateTrek from "./pages/Treks/UpdateTrek";
+import Tours from "./pages/Tours/Tours";
+import AddTour from "./pages/Tours/AddTour";
+import UpdateTour from "./pages/Tours/UpdateTour";
+
+const isUserLoggedIn = localStorage.getItem("ismtnusrlgd");
 
 const App = () => {
   const router = createBrowserRouter([
@@ -37,17 +41,31 @@ const App = () => {
           element: <NotFound />,
         },
         {
-          path: "/auctions",
-          element: <Auctions />,
+          path: "/treks",
+          element: <Treks />,
         },
         {
-          path: "/auctions/add",
-          element: <AddAuction />,
+          path: "/treks/add",
+          element: <AddTrek />,
         },
         {
-          path: "/auctions/update/:id",
-          element: <UpdateAuction />,
+          path: "/treks/update/:id",
+          element: <UpdateTrek />,
         },
+
+        {
+          path: "/tours",
+          element: <Tours />,
+        },
+        {
+          path: "/tours/add",
+          element: <AddTour />,
+        },
+        {
+          path: "/tours/update/:id",
+          element: <UpdateTour />,
+        },
+
 
       ],
     },

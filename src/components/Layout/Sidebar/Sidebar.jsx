@@ -31,15 +31,34 @@ const Sidebar = () => {
 
           <li>
             <Link
-              to="/auctions"
+              to="/treks"
               className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
             >
               <CategoryIcon />
-              <span className="flex-1 ms-3 whitespace-nowrap">Auctions</span>
+              <span className="flex-1 ms-3 whitespace-nowrap">Treks</span>
             </Link>
           </li>
 
-                   
+          <li>
+            <Link
+              to="/tours"
+              className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
+            >
+              <CategoryIcon />
+              <span className="flex-1 ms-3 whitespace-nowrap">Tours</span>
+            </Link>
+          </li>
+
+
+          <li>
+            <Link
+              to="/gallery"
+              className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
+            >
+              <CategoryIcon />
+              <span className="flex-1 ms-3 whitespace-nowrap">Gallery</span>
+            </Link>
+          </li>
 
           <li>
             <div
