@@ -55,8 +55,9 @@ const Treks = () => {
       <Toaster />
 
       <div class="p-10 ">
+      <div className="text-2xl">Treks</div>
         <div class="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-8 bg-white ">
-        <div className="text-2xl">Treks</div>
+        
 
           <Link
             to="/treks/add"

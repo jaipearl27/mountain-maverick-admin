@@ -7,9 +7,9 @@ import { instance } from "../../services/axiosInterceptor";
 const Tours = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const getData = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     instance
       .get(`/tours`)
       .then((res) => {
@@ -20,43 +20,44 @@ const Tours = () => {
         console.log(err);
         setIsLoading(false);
       });
-  }
+  };
 
   useEffect(() => {
-    getData()
+    getData();
   }, []);
 
   const deleteItem = (item) => {
-    if(window.confirm(`Are you sure you want to delete tour`)){
-      instance.delete(`${import.meta.env.VITE_API_URL}/tours/${item._id}`).then((res) => {
-        toast.success(res.data.message, {
-          style: {
-            background: "green",
-            color: "white",
-          },
+    if (window.confirm(`Are you sure you want to delete tour`)) {
+      instance
+        .delete(`${import.meta.env.VITE_API_URL}/tours/${item._id}`)
+        .then((res) => {
+          toast.success(res.data.message, {
+            style: {
+              background: "green",
+              color: "white",
+            },
+          });
+          getData();
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("There was some issue deleting the tour", {
+            style: {
+              background: "red",
+              color: "white",
+            },
+          });
         });
-        getData()
-      }).catch(err => {
-        console.log(err)
-        toast.error("There was some issue deleting the tour", {
-          style: {
-            background: "red",
-            color: "white",
-          },
-        });
-        
-      })
     }
-  }
-
+  };
 
   return (
     <div>
       <Toaster />
 
       <div class="p-10 ">
+        <div className="text-2xl">Tours</div>
         <div class="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-8 bg-white ">
-          <div className="text-2xl">Tours</div>
           <Link
             to="/tours/add"
             className="bg-blue-600 rounded-md text-white px-3 py-1 font-semibold "
@@ -66,12 +67,12 @@ const Tours = () => {
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           {isLoading && (
-           <>
-           <Skeleton animation="wave" height={50} />
-           <Skeleton animation="wave" height={50} />
-           <Skeleton animation="wave" height={50} />
-           <Skeleton animation="wave" height={50} />
-         </>
+            <>
+              <Skeleton animation="wave" height={50} />
+              <Skeleton animation="wave" height={50} />
+              <Skeleton animation="wave" height={50} />
+              <Skeleton animation="wave" height={50} />
+            </>
           )}
           {data && (
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
@@ -95,9 +96,7 @@ const Tours = () => {
                       scope="row"
                       className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap "
                     >
-                      <div className="ps-3">
-                       {idx + 1}
-                      </div>
+                      <div className="ps-3">{idx + 1}</div>
                     </th>
                     <td className="px-6 py-4">{item.title}</td>
 
@@ -113,7 +112,7 @@ const Tours = () => {
                       <button
                         className="font-medium text-red-600  hover:underline"
                         onClick={() => {
-                          deleteItem(item)
+                          deleteItem(item);
                         }}
                       >
                         Delete
