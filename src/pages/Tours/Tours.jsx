@@ -56,6 +56,7 @@ const Tours = () => {
 
       <div class="p-10 ">
         <div class="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-8 bg-white ">
+          <div className="text-2xl">Tours</div>
           <Link
             to="/tours/add"
             className="bg-blue-600 rounded-md text-white px-3 py-1 font-semibold "
