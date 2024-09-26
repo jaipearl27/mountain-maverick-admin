@@ -1,11 +1,20 @@
-import { Skeleton } from "@mui/material";
+import { Pagination, Skeleton, styled } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { instance } from "../../services/axiosInterceptor";
 
+const StyledPagination = styled(Pagination)(({ theme }) => ({
+  "& .MuiPaginationItem-root": {
+    color: "black",
+  },
+}));
+
 const Tours = () => {
   const [data, setData] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+  const [page, setPage] = useState(searchParams.get("page") || 1);
+  const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const getData = () => {
@@ -14,6 +23,7 @@ const Tours = () => {
       .get(`/tours`)
       .then((res) => {
         setData(res?.data?.data);
+        setTotalPages(res?.data?.totalPages)
         setIsLoading(false);
       })
       .catch((err) => {
@@ -24,7 +34,12 @@ const Tours = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [page]);
+
+  const handlePagination = (e, p) => {
+    setPage(p);
+    setSearchParams({ page: p });
+  };
 
   const deleteItem = (item) => {
     if (window.confirm(`Are you sure you want to delete tour`)) {
@@ -55,9 +70,9 @@ const Tours = () => {
     <div>
       <Toaster />
 
-      <div class="p-10 ">
+      <div className="p-10 ">
         <div className="text-2xl">Tours</div>
-        <div class="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-8 bg-white ">
+        <div className="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-8 bg-white ">
           <Link
             to="/tours/add"
             className="bg-blue-600 rounded-md text-white px-3 py-1 font-semibold "
@@ -65,7 +80,7 @@ const Tours = () => {
             Add
           </Link>
         </div>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           {isLoading && (
             <>
               <Skeleton animation="wave" height={50} />
@@ -91,7 +106,7 @@ const Tours = () => {
               </thead>
               <tbody>
                 {data.map((item, idx) => (
-                  <tr className="bg-white border-b   hover:bg-gray-50 ">
+                  <tr className="bg-white border-b   hover:bg-gray-50 " key={item?._id}>
                     <th
                       scope="row"
                       className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap "
@@ -124,6 +139,16 @@ const Tours = () => {
             </table>
           )}
         </div>
+        {!isLoading && data && (
+          <div className="flex flex-row justify-center w-full mt-10">
+            <StyledPagination
+              count={totalPages}
+              page={Number(page)}
+              color="primary"
+              onChange={handlePagination}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

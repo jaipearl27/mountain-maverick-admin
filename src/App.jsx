@@ -21,6 +21,8 @@ import UpdateTrek from "./pages/Treks/UpdateTrek";
 import Tours from "./pages/Tours/Tours";
 import AddTour from "./pages/Tours/AddTour";
 import UpdateTour from "./pages/Tours/UpdateTour";
+import Gallery from "./pages/gallery/Gallery";
+import AddGallery from "./pages/gallery/AddGallery";
 
 const isUserLoggedIn = localStorage.getItem("ismtnusrlgd");
 
@@ -66,6 +68,16 @@ const App = () => {
           element: <UpdateTour />,
         },
 
+        {
+          path: "/gallery",
+          element: <Gallery />,
+        },
+
+        
+        {
+          path: "/gallery/add",
+          element: <AddGallery />,
+        },
 
       ],
     },
