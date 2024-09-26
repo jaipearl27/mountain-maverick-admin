@@ -23,6 +23,7 @@ import AddTour from "./pages/Tours/AddTour";
 import UpdateTour from "./pages/Tours/UpdateTour";
 import Gallery from "./pages/gallery/Gallery";
 import AddGallery from "./pages/gallery/AddGallery";
+import UpdateGallery from "./pages/gallery/UpdateGallery";
 
 const isUserLoggedIn = localStorage.getItem("ismtnusrlgd");
 
@@ -78,6 +79,13 @@ const App = () => {
           path: "/gallery/add",
           element: <AddGallery />,
         },
+
+          
+        {
+          path: "/gallery/update/:id",
+          element: <UpdateGallery />,
+        },
+
 
       ],
     },

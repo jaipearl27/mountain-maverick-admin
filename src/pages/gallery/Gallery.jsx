@@ -98,10 +98,10 @@ const Gallery = () => {
                   className="w-[300px] h-[300px] border rounded-md flex flex-col justify-center items-center"
                   
                   >
-                  <img src={item?.file[0].secure_url} className="object-contain max-w-full max-h-full" alt="" />
+                  <img src={item?.file[0]?.secure_url} className="object-contain max-w-full max-h-full" alt="" />
                 </div>
                 <div className="flex">
-                  <Link to="/gallery/update" className="text-white text-center bg-blue-500 hover:bg-blue-600 w-1/2 p-2 transition duration-300" >View/Edit</Link>
+                  <Link to={`/gallery/update/${item?._id}`} className="text-white text-center bg-blue-500 hover:bg-blue-600 w-1/2 p-2 transition duration-300" >View/Edit</Link>
                   <button type="button" className="text-white text-center bg-red-500 hover:bg-red-600 rounded-br-md w-1/2 p-2 transition duration-300" onClick={() => deleteItem(item)} >Delete</button>
 
                 </div>

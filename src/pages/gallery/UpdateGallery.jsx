@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { instance } from "../../services/axiosInterceptor";
 import { Toaster, toast } from "sonner";
 import { ClipLoader } from "react-spinners";
+import { useParams } from "react-router-dom";
 
-const AddGallery = () => {
+const UpdateGallery = () => {
+  const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [imageName, setImageName] = useState(null);
@@ -39,7 +41,7 @@ const AddGallery = () => {
     formData.append("file", file[0]);
 
     instance
-      .post(`/gallery`, formData, {
+      .patch(`/gallery/${id}`, formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -53,6 +55,7 @@ const AddGallery = () => {
         });
         reset();
         setPreviewImage(null);
+        window.location.href = '/gallery'
       })
       .catch((err) => {
         reset();
@@ -76,12 +79,34 @@ const AddGallery = () => {
     }
   }, [temp]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    instance
+      .get(`/gallery/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setIsLoading(false);
+        setPreviewImage(res?.data?.data?.file[0]?.secure_url);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+
+        toast.error(err, {
+          style: {
+            background: "red",
+            color: "white",
+          },
+        });
+      });
+  }, []);
+
   return (
     <div className="p-10">
       <Toaster />
       <div className=" flex justify-center ">
         <h3 className="text-gray-600 text-2xl font-semibold sm:text-3xl">
-          Add Gallery Item
+          Update Gallery Item
         </h3>
       </div>
       <div className="bg-white rounded-lg shadow p-4 py-6  sm:rounded-lg sm:max-w-5xl mt-8 mx-auto">
@@ -159,7 +184,7 @@ const AddGallery = () => {
 
           <div className="flex justify-center pt-2">
             <button className="w-1/2 text-white rounded-md p-2 bg-blue-500 hover:bg-blue-700 transition duration-300">
-              {isLoading ? <ClipLoader color="#c4c2c2" /> : <>Save</>}
+              {isLoading ? <ClipLoader color="#c4c2c2" /> : <>Update</>}
             </button>
           </div>
         </form>
@@ -168,4 +193,4 @@ const AddGallery = () => {
   );
 };
 
-export default AddGallery;
+export default UpdateGallery;
