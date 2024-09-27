@@ -20,7 +20,7 @@ const Gallery = () => {
   const getData = () => {
     setIsLoading(true);
     instance
-      .get(`/gallery`)
+      .get(`/gallery?page=${page}`)
       .then((res) => {
         setData(res?.data?.data);
         setTotalPages(res?.data?.totalPages);

@@ -20,7 +20,7 @@ const Treks = () => {
   const getData = () => {
     setIsLoading(true);
     instance
-      .get(`/treks`)
+      .get(`/treks?page=${page}`)
       .then((res) => {
         setData(res?.data?.data);
         setTotalPages(res?.data?.totalPages);
