@@ -24,6 +24,9 @@ import UpdateTour from "./pages/Tours/UpdateTour";
 import Gallery from "./pages/gallery/Gallery";
 import AddGallery from "./pages/gallery/AddGallery";
 import UpdateGallery from "./pages/gallery/UpdateGallery";
+import SpecialTrips from "./pages/SpecialTrips/SpecialTrips";
+import AddSpecialTrip from "./pages/SpecialTrips/AddSpecialTrip";
+import UpdateSpecialTrip from "./pages/SpecialTrips/UpdateSpecialTrips";
 
 const isUserLoggedIn = localStorage.getItem("ismtnusrlgd");
 
@@ -84,6 +87,20 @@ const App = () => {
         {
           path: "/gallery/update/:id",
           element: <UpdateGallery />,
+        },
+
+
+        {
+          path: "/specialTrips",
+          element: <SpecialTrips />,
+        },
+        {
+          path: "/specialTrips/add",
+          element: <AddSpecialTrip />,
+        },
+        {
+          path: "/specialTrips/update/:id",
+          element: <UpdateSpecialTrip />,
         },
 
 

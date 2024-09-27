@@ -1,8 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import CategoryIcon from "@mui/icons-material/Category";
 import { instance } from "../../../services/axiosInterceptor";
-
+//icons
+import CategoryIcon from "@mui/icons-material/Category";
+import BurstModeIcon from '@mui/icons-material/BurstMode';
+import LandscapeIcon from '@mui/icons-material/Landscape';
+import TempleHinduIcon from '@mui/icons-material/TempleHindu';
+import GradeIcon from '@mui/icons-material/Grade';
 const Sidebar = () => {
   const navigate = useNavigate()
 
@@ -34,7 +38,7 @@ const Sidebar = () => {
               to="/treks"
               className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
             >
-              <CategoryIcon />
+              <LandscapeIcon />
               <span className="flex-1 ms-3 whitespace-nowrap">Treks</span>
             </Link>
           </li>
@@ -44,7 +48,7 @@ const Sidebar = () => {
               to="/tours"
               className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
             >
-              <CategoryIcon />
+              <TempleHinduIcon />
               <span className="flex-1 ms-3 whitespace-nowrap">Tours</span>
             </Link>
           </li>
@@ -55,11 +59,21 @@ const Sidebar = () => {
               to="/gallery"
               className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
             >
-              <CategoryIcon />
+              <BurstModeIcon />
+
               <span className="flex-1 ms-3 whitespace-nowrap">Gallery</span>
             </Link>
           </li>
 
+          <li>
+            <Link
+              to="/specialTrips"
+              className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
+            >
+              <GradeIcon />
+              <span className="flex-1 ms-3 whitespace-nowrap">Special Trips</span>
+            </Link>
+          </li>
           <li>
             <div
               onClick={() => logout()}
