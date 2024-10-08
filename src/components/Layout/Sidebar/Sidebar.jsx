@@ -2,11 +2,12 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { instance } from "../../../services/axiosInterceptor";
 //icons
-import CategoryIcon from "@mui/icons-material/Category";
 import BurstModeIcon from '@mui/icons-material/BurstMode';
 import LandscapeIcon from '@mui/icons-material/Landscape';
 import TempleHinduIcon from '@mui/icons-material/TempleHindu';
 import GradeIcon from '@mui/icons-material/Grade';
+import EmailIcon from '@mui/icons-material/Email';
+
 const Sidebar = () => {
   const navigate = useNavigate()
 
@@ -72,6 +73,15 @@ const Sidebar = () => {
             >
               <GradeIcon />
               <span className="flex-1 ms-3 whitespace-nowrap">Special Trips</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/contacts"
+              className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
+            >
+              <EmailIcon />
+              <span className="flex-1 ms-3 whitespace-nowrap">Contacts</span>
             </Link>
           </li>
           <li>

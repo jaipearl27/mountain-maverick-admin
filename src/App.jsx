@@ -27,6 +27,7 @@ import UpdateGallery from "./pages/gallery/UpdateGallery";
 import SpecialTrips from "./pages/SpecialTrips/SpecialTrips";
 import AddSpecialTrip from "./pages/SpecialTrips/AddSpecialTrip";
 import UpdateSpecialTrip from "./pages/SpecialTrips/UpdateSpecialTrips";
+import Contacts from "./pages/Contacts/Contacts";
 
 const isUserLoggedIn = localStorage.getItem("ismtnusrlgd");
 
@@ -101,6 +102,11 @@ const App = () => {
         {
           path: "/specialTrips/update/:id",
           element: <UpdateSpecialTrip />,
+        },
+
+        {
+          path: "/contacts",
+          element: <Contacts />,
         },
 
 
