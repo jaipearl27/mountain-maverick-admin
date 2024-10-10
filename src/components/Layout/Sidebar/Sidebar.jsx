@@ -68,11 +68,11 @@ const Sidebar = () => {
 
           <li>
             <Link
-              to="/specialTrips"
+              to="/specialPrograms"
               className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer  hover:bg-gray-100  group"
             >
               <GradeIcon />
-              <span className="flex-1 ms-3 whitespace-nowrap">Special Trips</span>
+              <span className="flex-1 ms-3 whitespace-nowrap">Special Programs</span>
             </Link>
           </li>
           <li>

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import TextEditor from "../../components/TextEditor/TextEditor";
 import { instance } from "../../services/axiosInterceptor";
 import { Toaster, toast } from "sonner";
 import { ClipLoader } from "react-spinners";
+import { useParams } from "react-router-dom";
+import JoditEditor from "jodit-react";
 
-const AddSpecialTrip = () => {
-  // const [data, setData] = useState(null);
+const UpdateSpecialTrip = () => {
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const [bannerName, setBannerName] = useState({});
+  const [selectedBanner, setSelectedBanner] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+  const { id } = useParams();
 
   const {
     register,
@@ -18,23 +20,59 @@ const AddSpecialTrip = () => {
     formState: { errors },
     control,
     watch,
+    setValue, // Allows you to manually set field values
     reset,
   } = useForm({
     defaultValues: {},
   });
+
+  const getSpecialProgram = () => {
+    setIsLoading(true);
+    instance
+      .get(`/specialPrograms/${id}`)
+      .then((res) => {
+        setData(res?.data?.data);
+        console.log(res?.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    if (id) {
+      getSpecialProgram();
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (!data) return;
+    reset({
+      title: data?.title,
+      slug: data?.slug,
+    });
+    setPreviewImage(data.banner[0].path);
+    setValue("content", data.content); // This updates the content field's value
+  }, [data, setValue, reset]);
 
   const onSubmit = (data) => {
     if (isLoading) return;
     setIsLoading(true);
     const formData = new FormData();
     const { banner } = data;
-    formData.append("banner", banner[0]);
+    if (selectedBanner) {
+      formData.append("banner", selectedBanner);
+    }
+    formData.append("id", data._id);
     formData.append("content", data.content);
     formData.append("title", data.title);
-    // formData.append("slug", data.slug); 
+    // formData.append("slug", data.slug);
+
     // api call here
     instance
-      .post(`/specialTrips`, formData, {
+      .patch(`/specialPrograms/${id}`, formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -46,7 +84,7 @@ const AddSpecialTrip = () => {
             color: "white",
           },
         });
-        window.location.href = "/specialTrips";
+        window.location.href = "/specialPrograms";
       })
       .catch((err) => {
         reset();
@@ -67,12 +105,17 @@ const AddSpecialTrip = () => {
     setBannerName(temp);
   }, [temp]);
 
+  const handleFileInputChange = (e) => {
+    setSelectedBanner(e.target.files[0]);
+    setPreviewImage(URL.createObjectURL(e.target.files[0]));
+  };
+
   return (
     <div className="p-10">
       <Toaster />
       <div className=" flex justify-center">
         <h3 className="text-gray-600 text-2xl font-semibold sm:text-3xl">
-          Add a specialTrip
+          Update Special Program
         </h3>
       </div>
       <div className="bg-white rounded-lg shadow p-4 py-6  sm:rounded-lg sm:max-w-5xl mt-8 mx-auto">
@@ -85,7 +128,7 @@ const AddSpecialTrip = () => {
             {...register("title", { required: "title is required" })}
             type="text"
             className="w-full mt-2 me-50 px-5 py-2 text-gray-500 border-slate-300 bg-transparent outline-none border focus:border-teal-400 shadow-sm rounded-lg"
-            placeholder="Enter a title for your specialTrip"
+            placeholder="Enter a title for your specialProgram"
           />
           {errors.topic && (
             <span className="text-red-500">Title is required</span>
@@ -104,7 +147,12 @@ const AddSpecialTrip = () => {
             )}
           </div> */}
 
-          <div className="flex-1 items-center mx-auto mb-3 space-y-4 sm:flex sm:space-y-0">
+          <div className="flex-1 items-center mx-auto gap-2 mb-3 space-y-4 sm:flex sm:space-y-0">
+            {previewImage && (
+              <div className="w-full max-w-[48%]">
+                <img src={previewImage} className="max-h-[500px]" />
+              </div>
+            )}
             <div className="relative w-full space-y-1">
               <label htmlFor="input" className="font-medium ">
                 Banner
@@ -141,10 +189,11 @@ const AddSpecialTrip = () => {
                   </span>
                   <input
                     type="file"
-                    {...register("banner", { required: "topic is required" })}
+                    {...register("banner")}
                     className="hidden"
                     accept="image/png,image/jpeg,image/webp"
                     id="input"
+                    onChange={handleFileInputChange}
                   />
                 </label>
               </div>
@@ -160,9 +209,11 @@ const AddSpecialTrip = () => {
               name={`content`}
               control={control}
               render={({ field }) => (
-                <TextEditor
-                  onChange={(data) => field.onChange(data)} // Pass onChange handler from field
-                  value={field.value} // Pass value from field to TextEditor
+                <JoditEditor
+                  value={field.value} // Controlled by react-hook-form
+                  tabIndex={1}
+                  onBlur={(newContent) => field.onChange(newContent)}
+                  config={{ theme: "dark" }}
                 />
               )}
               rules={{ required: true }}
@@ -186,4 +237,4 @@ const AddSpecialTrip = () => {
   );
 };
 
-export default AddSpecialTrip;
+export default UpdateSpecialTrip;

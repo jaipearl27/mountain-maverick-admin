@@ -10,7 +10,7 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
   },
 }));
 
-const SpecialTrips = () => {
+const SpecialPrograms = () => {
   const [data, setData] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const [page, setPage] = useState(searchParams.get("page") || 1);
@@ -20,7 +20,7 @@ const SpecialTrips = () => {
   const getData = () => {
     setIsLoading(true);
     instance
-      .get(`/specialTrips`)
+      .get(`/specialPrograms`)
       .then((res) => {
         setData(res?.data?.data);
         setTotalPages(res?.data?.totalPages)
@@ -42,9 +42,9 @@ const SpecialTrips = () => {
   };
 
   const deleteItem = (item) => {
-    if (window.confirm(`Are you sure you want to delete specialTrip`)) {
+    if (window.confirm(`Are you sure you want to delete specialProgram`)) {
       instance
-        .delete(`${import.meta.env.VITE_API_URL}/specialTrips/${item._id}`)
+        .delete(`${import.meta.env.VITE_API_URL}/specialPrograms/${item._id}`)
         .then((res) => {
           toast.success(res.data.message, {
             style: {
@@ -56,7 +56,7 @@ const SpecialTrips = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error("There was some issue deleting the specialTrip", {
+          toast.error("There was some issue deleting the specialProgram", {
             style: {
               background: "red",
               color: "white",
@@ -71,10 +71,10 @@ const SpecialTrips = () => {
       <Toaster />
 
       <div className="p-10 ">
-        <div className="text-2xl">SpecialTrips</div>
+        <div className="text-2xl">SpecialPrograms</div>
         <div className="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-8 bg-white ">
           <Link
-            to="/specialTrips/add"
+            to="/specialPrograms/add"
             className="bg-blue-600 rounded-md text-white px-3 py-1 font-semibold "
           >
             Add
@@ -117,7 +117,7 @@ const SpecialTrips = () => {
 
                     <td className="px-6 py-4">
                       <Link
-                        to={`/specialTrips/update/${item?._id}`}
+                        to={`/specialPrograms/update/${item?._id}`}
                         className="font-medium text-blue-600  hover:underline"
                       >
                         Edit
@@ -154,4 +154,4 @@ const SpecialTrips = () => {
   );
 };
 
-export default SpecialTrips;
+export default SpecialPrograms;

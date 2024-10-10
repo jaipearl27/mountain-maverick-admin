@@ -24,9 +24,9 @@ import UpdateTour from "./pages/Tours/UpdateTour";
 import Gallery from "./pages/gallery/Gallery";
 import AddGallery from "./pages/gallery/AddGallery";
 import UpdateGallery from "./pages/gallery/UpdateGallery";
-import SpecialTrips from "./pages/SpecialTrips/SpecialTrips";
-import AddSpecialTrip from "./pages/SpecialTrips/AddSpecialTrip";
-import UpdateSpecialTrip from "./pages/SpecialTrips/UpdateSpecialTrips";
+import SpecialPrograms from "./pages/SpecialProgram/SpecialProgram";
+import AddSpecialProgram from "./pages/SpecialProgram/AddSpecialProgram";
+import UpdateSpecialProgram from "./pages/SpecialProgram/UpdateSpecialProgram";
 import Contacts from "./pages/Contacts/Contacts";
 
 const isUserLoggedIn = localStorage.getItem("ismtnusrlgd");
@@ -78,38 +78,33 @@ const App = () => {
           element: <Gallery />,
         },
 
-        
         {
           path: "/gallery/add",
           element: <AddGallery />,
         },
 
-          
         {
           path: "/gallery/update/:id",
           element: <UpdateGallery />,
         },
 
-
         {
-          path: "/specialTrips",
-          element: <SpecialTrips />,
+          path: "/specialPrograms",
+          element: <SpecialPrograms />,
         },
         {
-          path: "/specialTrips/add",
-          element: <AddSpecialTrip />,
+          path: "/specialPrograms/add",
+          element: <AddSpecialProgram />,
         },
         {
-          path: "/specialTrips/update/:id",
-          element: <UpdateSpecialTrip />,
+          path: "/specialPrograms/update/:id",
+          element: <UpdateSpecialProgram />,
         },
 
         {
           path: "/contacts",
           element: <Contacts />,
         },
-
-
       ],
     },
     {
